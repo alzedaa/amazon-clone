@@ -1,18 +1,40 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, redirect, Navigate } from "react-router-dom";
+import { auth } from "./firebase";
 import "./Login.css";
 
-function Login() {
+const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signIn = (e) => {
+  function signIn(e) {
     e.preventDefault();
-  };
 
-  const register = (e) => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((auth) => {
+        console.log(auth);
+        if (auth) {
+          navigate("/", { replace: true });
+        }
+      })
+      .catch((error) => alert(error.message));
+  }
+
+  function register(e) {
     e.preventDefault();
-  };
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        console.log(auth);
+        if (auth) {
+          navigate("/", { replace: true });
+        }
+      })
+      .catch((error) => alert(error.message));
+  }
 
   return (
     <div className="login">
@@ -59,6 +81,6 @@ function Login() {
       </button>
     </div>
   );
-}
+};
 
 export default Login;
