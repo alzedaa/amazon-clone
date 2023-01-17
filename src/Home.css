@@ -19,3 +19,10 @@
   margin-bottom: -150px;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
+
+.product:hover {
+  transition: all 100ms ease-in;
+  transform: scale(1.02);
+  opacity: 1;
+  border-radius: 10px;
+}
