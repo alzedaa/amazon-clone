@@ -22,11 +22,13 @@ function Payment() {
         url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
       });
 
-      setClientSecret(response.data.ClientSecret);
+      setClientSecret(response.data.clientSecret);
     };
 
     getClientSecret();
   }, [basket]);
+
+  console.log(clientSecret);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
