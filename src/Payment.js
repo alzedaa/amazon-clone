@@ -15,6 +15,12 @@ function Payment() {
   const stripe = useStripe();
   const elements = useElements();
 
+  const [error, setError] = useState(null);
+  const [disabled, setDisabled] = useState(true);
+  const [succeeded, setSucceeded] = useState(false);
+  const [processing, setProcessing] = useState("");
+  const [clientSecret, setClientSecret] = useState(true);
+
   useEffect(() => {
     const getClientSecret = async () => {
       const response = await axios({
@@ -28,7 +34,7 @@ function Payment() {
     getClientSecret();
   }, [basket]);
 
-  console.log(clientSecret);
+  console.log("The secret is >>>", clientSecret);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,12 +59,6 @@ function Payment() {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
-
-  const [error, setError] = useState(null);
-  const [disabled, setDisabled] = useState(true);
-  const [succeeded, setSucceeded] = useState(false);
-  const [processing, setProcessing] = useState("");
-  const [clientSecret, setClientSecret] = useState(true);
 
   return (
     <div className="payment">
